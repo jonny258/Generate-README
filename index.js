@@ -7,33 +7,41 @@ const fs = require('fs');
 const licenses = [
     {
         name: 'MIT License',
-        badge: 'https://img.shields.io/badge/License-MIT-yellow.svg'
+        badge: 'https://img.shields.io/badge/License-MIT-yellow.svg',
+        description: 'A permissive license that allows users to do anything with the code, as long as they provide attribution and don’t hold the author liable.'
     },
     {
         name: 'Apache License 2.0',
-        badge: 'https://img.shields.io/badge/License-Apache%202.0-blue.svg'
+        badge: 'https://img.shields.io/badge/License-Apache%202.0-blue.svg',
+        description: 'A permissive license that allows users to use, distribute, and modify the code for commercial or non-commercial purposes, as long as they provide attribution and include the license text.'
     },
     {
         name: 'GNU General Public License (GPL)',
-        badge: 'https://img.shields.io/badge/License-GPLv3-blue.svg'
+        badge: 'https://img.shields.io/badge/License-GPLv3-blue.svg',
+        description: 'A copyleft license that requires users to release derivative works under the same license, and to provide access to the source code for the work and any modifications.'
     },
     {
         name: 'GNU Lesser General Public License (LGPL)',
-        badge: 'https://img.shields.io/badge/License-LGPL%20v3-blue.svg'
+        badge: 'https://img.shields.io/badge/License-LGPL%20v3-blue.svg',
+        description: 'A weaker copyleft license that allows users to link to the code from proprietary software, but requires that any changes to the code be released under the LGPL.'
     },
     {
         name: 'BSD 3-Clause License',
-        badge: 'https://img.shields.io/badge/License-BSD%203--Clause-blue.svg'
+        badge: 'https://img.shields.io/badge/License-BSD%203--Clause-blue.svg',
+        description: 'A permissive license that allows users to use, distribute, and modify the code for commercial or non-commercial purposes, as long as they provide attribution and include the license text.'
     },
     {
         name: 'Mozilla Public License 2.0',
-        badge: 'https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg'
+        badge: 'https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg',
+        description: 'A copyleft license that requires users to release any changes or derivative works under the MPL, but allows them to combine the code with proprietary code.'
     },
     {
         name: 'The Unlicense',
-        badge: 'https://img.shields.io/badge/license-Unlicense-blue.svg'
+        badge: 'https://img.shields.io/badge/license-Unlicense-blue.svg',
+        description: 'A public domain dedication that allows users to do anything with the code, without attribution or liability.'
     }
 ];
+
 
 const questions = [
     {
@@ -74,9 +82,14 @@ const questions = [
     },
     {
       type: 'input',
-      name: 'questions',
-      message: 'Please provide information on how to reach you with any questions about your project:'
-    }
+      name: 'github',
+      message: 'Please provide your Github username:'
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'Please provide your primary email:'
+      }
   ];
   
 // TODO: Create a function to write README file
@@ -84,12 +97,14 @@ function writeToFile(fileName, questions) {
     inquirer
         .prompt(questions)
         .then((res) => {
-            const selectedBadge = licenses.filter(badge => {
-                if(badge.name === res.licenses){
-                    return badge;
+            const selectedBadge = licenses.filter(item => {
+                if(item.name === res.license){
+                    return item;
                 }
             })
-            console.log(selectedBadge[0].badge)
+
+            const badgeImage = selectedBadge[0].badge
+            const badgeDescription = selectedBadge[0].description
 
 
             fs.writeFile(fileName, 'res', (err) => {
