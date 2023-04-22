@@ -102,12 +102,60 @@ function writeToFile(fileName, questions) {
                     return item;
                 }
             })
+            const badgeImage = selectedBadge[0].badge;
+            const badgeDescription = selectedBadge[0].description;
 
-            const badgeImage = selectedBadge[0].badge
-            const badgeDescription = selectedBadge[0].description
+            const README = `
+# ${res.title} <img src="${badgeImage}">
+
+## Description
+${res.description}
+
+## Table of Contents
+
+- [Title of My Project](#title-of-my-project)
+- [Description](#description)
+- [Table of Contents](#table-of-contents)
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [Questions](#questions)
 
 
-            fs.writeFile(fileName, 'res', (err) => {
+## Installation
+
+${res.installation}
+
+## Usage
+
+${res.usage}
+
+## License
+
+${badgeDescription}
+
+## Contributing
+
+${res.contributing}
+
+## Tests
+
+${res.tests}
+
+## Questions
+
+If you have any questions reach out via email
+
+Email: ${res.email}
+
+GitHub: https://github.com/${res.github}
+            `
+            
+
+
+            fs.writeFile(fileName, README, (err) => {
                 err ? console.log(err) : console.log("this worked")
             })
         })
