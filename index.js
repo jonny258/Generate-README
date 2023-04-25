@@ -161,9 +161,11 @@ GitHub: https://github.com/${res.github}
         })
 }
 
-writeToFile('README.md', questions)
+
 // TODO: Create a function to initialize app
-function init() { }
+function init(){ 
+  writeToFile('README.md', questions)
+}
 
 // Function call to initialize app
 init();
